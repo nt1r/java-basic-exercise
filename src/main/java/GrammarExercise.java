@@ -8,7 +8,6 @@ public class GrammarExercise {
 
         List<String> result = findCommonWordsWithSpace(firstWordList, secondWordList);
         //按要求输出到命令行
-
     }
 
     public static List<String> findCommonWordsWithSpace(String firstWordList, String secondWordList) {
@@ -19,11 +18,17 @@ public class GrammarExercise {
             throw new RuntimeException("input not valid");
         }
 
+        // split words by "," pattern
         List<String> firstSplitList = splitByPattern(firstWordList, ",");
         List<String> secondSplitList = splitByPattern(secondWordList, ",");
 
+        // core function here, match common words of two string lists
         List<String> commonWordsList = matchCommonWords(firstSplitList, secondSplitList);
+
+        // remove repeated words
         removeRepeatedWords(commonWordsList);
+
+        // add space characters before output
         addSpaceInEachWord(commonWordsList);
 
         return commonWordsList;
@@ -83,6 +88,7 @@ public class GrammarExercise {
         List<String> splitStrList = Arrays.asList(splitStrArray);
         // to upper case
         List<String> splitStrList_uppercase = new ArrayList<>();
+
         ListIterator<String> iterator = splitStrList.listIterator();
         while (iterator.hasNext()) {
             splitStrList_uppercase.add(iterator.next().toUpperCase());
@@ -114,6 +120,7 @@ public class GrammarExercise {
         String strFirst = iterator_first.hasNext() ? iterator_first.next() : "";
         String strSecond = iterator_second.hasNext() ? iterator_second.next() : "";
 
+        // comparison between two sorted string list
         while (iterator_first.hasNext() && iterator_second.hasNext()) {
             if (strFirst.contentEquals(strSecond)) {
                 commonWordList.add(strFirst);
@@ -177,6 +184,8 @@ public class GrammarExercise {
         while (iterator.hasNext()) {
             String currentStr = iterator.next();
             String spaceInsertedStr = addSpaceInStr(currentStr);
+
+            // remove raw string and add new string
             iterator.remove();
             iterator.add(spaceInsertedStr);
         }
@@ -197,7 +206,7 @@ public class GrammarExercise {
         }
 
         String insertedStr = stringBuilder.toString();
-
+        // remove last space character
         return insertedStr.substring(0, insertedStr.length() - 1);
     }
     /* add space character */
